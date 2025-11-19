@@ -1,14 +1,24 @@
 <template>
-  <el-table :data="users" style="width: 100%">
-    <el-table-column prop="name" label="姓名" width="180" />
-    <el-table-column prop="email" label="邮箱" />
-    <el-table-column label="操作">
-      <template #default="scope">
-        <el-button @click="editUser(scope.row)" type="primary" size="small">编辑</el-button>
-        <el-button @click="deleteUser(scope.row)" type="danger" size="small">删除</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+  <el-container class="table-container">
+    <el-main>
+      <div class="table-header">
+        <h2>用户列表</h2>
+        <router-link to="/create">
+          <el-button type="primary">新增用户</el-button>
+        </router-link>
+      </div>
+      <el-table :data="users" style="width: 100%">
+        <el-table-column prop="name" label="姓名" width="180" />
+        <el-table-column prop="email" label="邮箱" />
+        <el-table-column label="操作">
+          <template #default="scope">
+            <el-button @click="editUser(scope.row)" type="primary" size="small">编辑</el-button>
+            <el-button @click="deleteUser(scope.row)" type="danger" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -19,7 +29,7 @@ export default {
   data() {
     return {
       users: [{ id: 1, name: '测试用户1', email: 'test1@example.com' },
-          { id: 2, name: '测试用户2', email: 'test2@example.com' }], // 初始化为空数组
+          { id: 2, name: '测试用户2', email: 'test2@example.com' }],
     };
   },
   methods: {
@@ -89,4 +99,23 @@ export default {
 
 <style>
 /* 添加一些样式以适配 Element Plus */
+.table-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+/* 新增用户入口样式 */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* 标题样式 */
+.table-header h2 {
+  margin: 0;
+}
 </style>

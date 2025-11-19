@@ -1,21 +1,23 @@
 <template>
-  <div>
-    <h2>{{ isEdit ? '编辑用户' : '创建用户' }}</h2>
-    <el-form :model="user" label-width="80px" @submit.prevent="submit">
-      <el-form-item label="姓名">
-        <el-input v-model="user.name" required></el-input>
-      </el-form-item>
-      <el-form-item label="邮箱">
-        <el-input v-model="user.email" required></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submit">保存</el-button>
-        <router-link to="/">
-          <el-button>取消</el-button>
-        </router-link>
-      </el-form-item>
-    </el-form>
-  </div>
+  <h3 class="form-title">{{ isEdit ? '编辑用户' : '创建用户' }}</h3>
+  <el-container class="form-container">
+    <el-main>
+      <el-form :model="user" label-width="80px" @submit.prevent="submit" class="form-content">
+        <el-form-item label="姓名">
+          <el-input v-model="user.name" required></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="user.email" required></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submit">保存</el-button>
+          <router-link to="/">
+            <el-button>取消</el-button>
+          </router-link>
+        </el-form-item>
+      </el-form>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -60,5 +62,27 @@ export default {
 </script>
 
 <style>
-/* 添加一些样式以适配 Element Plus */
+.form-container {
+  padding: 20px;
+  text-align: center;
+  margin-left: 25%;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 24px; 
+  font-weight: bold; 
+  color: #409eff; 
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.form-content {
+  width: 100%;
+  max-width: 500px; /* 限制表单宽度 */
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
 </style>
