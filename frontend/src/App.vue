@@ -2,17 +2,21 @@
   <el-container class="app-container">
 
     <el-header class="app-header">
-      <el-row>
-      <el-col :span="9">
-        <div class="grid-content ep-bg-purple" />
-      </el-col>
-      <el-col :span="6">
-        <h1>用户管理系统</h1>
-      </el-col>
-      <el-col :span="9">
-        <div class="grid-content ep-bg-purple-light" />
-      </el-col>
-    </el-row>
+      <el-menu
+        :default-active="activeIndex"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+      >    
+        <el-menu-item index="0">
+          <!-- <img
+            style="width: 100px"
+            src="src/assets/images/user-manager-logo.svg" 
+            alt="User Manager Logo"
+          /> -->
+        </el-menu-item>
+        <el-menu-item index="1">用户管理系统</el-menu-item>
+      </el-menu>
      
     </el-header>
     <el-main class="app-main">
@@ -53,20 +57,5 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
-.app-header {
-  width: 100%;
-  background: #409eff;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加阴影效果 */
-  border-bottom: 2px solid #e3f2fd; /* 添加底部边框 */
-}
-
-.app-header h1 {
-  margin: 0;
-  font-size: 28px; /* 增大字体 */
-  font-weight: bold; /* 加粗字体 */
-}
 
 </style>
