@@ -1,81 +1,76 @@
 <template>
-  <h3 class="form-title">{{ isEdit ? '编辑用户' : '创建用户' }}</h3>
-  <el-container class="form-container">
-    <el-main>
-      <el-form :model="user" label-width="80px" @submit.prevent="submit" class="form-content">
-        <el-form-item label="姓名">
-          <el-input v-model="user.name" required></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input v-model="user.email" required></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submit">保存</el-button>
-          <router-link to="/">
-            <el-button>取消</el-button>
-          </router-link>
-        </el-form-item>
-      </el-form>
-    </el-main>
-  </el-container>
+  
+  <h2 class="form-title">{{ isEdit ? '编辑用户' : '创建用户' }}</h2>
+    <el-form :model="user" label-width="80px" @submit.prevent="submit" class="form-content">
+      <el-form-item label="姓名">
+        <el-input v-model="user.name" required></el-input>
+      </el-form-item>
+      <el-form-item label="邮箱">
+        <el-input v-model="user.email" required></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submit">保存</el-button>
+        <router-link to="/">
+          <el-button>取消</el-button>
+        </router-link>
+      </el-form-item>
+    </el-form>
 </template>
 
 <script>
+import { reactive, computed, onMounted } from 'vue';
 import { fetchUser, createUser, updateUser } from '../api/user';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
-  name: 'UserForm',
-  props: ['id'],
-  data() {
-    return { user: { name: '', email: '' } };
-  },
-  computed: {
-    isEdit() {
-      return !!this.$route.params.id;
-    },
-  },
-  mounted() {
-    const id = this.$route.params.id;
-    if (id) {
-      fetchUser(id)
-        .then((r) => {
-          this.user = r.data;
-        })
-        .catch(() => alert('加载用户失败'));
-    }
-  },
-  methods: {
-    submit() {
-      const id = this.$route.params.id;
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+
+    const user = reactive({ name: '', email: '' });
+    const isEdit = computed(() => !!route.params.id);
+
+    const fetchUserData = async () => {
+      const id = route.params.id;
       if (id) {
-        updateUser(id, this.user)
-          .then(() => this.$router.push('/'))
-          .catch(() => alert('更新失败'));
-      } else {
-        createUser(this.user)
-          .then(() => this.$router.push('/'))
-          .catch(() => alert('创建失败'));
+        try {
+          const response = await fetchUser(id);
+          Object.assign(user, response.data);
+        } catch (error) {
+          alert('加载用户失败');
+        }
       }
-    },
+    };
+
+    const submit = async () => {
+      const id = route.params.id;
+      try {
+        if (id) {
+          await updateUser(id, user);
+        } else {
+          await createUser(user);
+        }
+        router.push('/');
+      } catch (error) {
+        alert(id ? '更新失败' : '创建失败');
+      }
+    };
+
+    onMounted(() => {
+      fetchUserData();
+    });
+
+    return {
+      user,
+      isEdit,
+      submit,
+    };
   },
 };
 </script>
 
 <style>
-.form-container {
-  padding: 20px;
-  text-align: center;
-  margin-left: 25%;
-}
 
-.form-title {
-  text-align: center;
-  font-size: 24px; 
-  font-weight: bold; 
-  color: #409eff; 
-  margin-bottom: 30px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
 
 .form-content {
   width: 100%;

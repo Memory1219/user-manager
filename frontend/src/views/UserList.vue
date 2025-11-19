@@ -1,6 +1,4 @@
 <template>
-  <el-container class="table-container">
-    <el-main>
       <div class="table-header">
         <h2>用户列表</h2>
         <router-link to="/create">
@@ -35,8 +33,6 @@
           <el-button type="primary" @click="saveUser">保存</el-button>
         </div>
       </el-dialog>
-    </el-main>
-  </el-container>
 </template>
 
 <script>
@@ -111,18 +107,6 @@ export default {
 </script>
 
 <style>
-.table-container {
-  display: flex;
-  justify-content: center;
-  margin-left: 20%;
-  margin-right: 20%;
-}
 
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
 </style>
