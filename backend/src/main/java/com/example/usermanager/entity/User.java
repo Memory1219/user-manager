@@ -4,6 +4,8 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    // TODO：曾加 tags 字段并生成 getter 和 setter
+    // private String tags;
 
     // Getters and Setters
     public Long getId() {

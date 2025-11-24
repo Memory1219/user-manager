@@ -49,4 +49,31 @@ public class UserController {
         if (!ok) return ResponseEntity.notFound().build();
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping
+public List<User> list(@RequestParam(required=false) String keyword,
+                       @RequestParam(required=false) String tag) {
+    if ((keyword != null && !keyword.isEmpty()) || (tag != null && !tag.isEmpty())) {
+        return userService.search(keyword, tag);
+    }
+    return userService.findAll();
+}
+
+    // TODO：新增查询和更新
+    // @GetMapping
+    // public List<User> list(@RequestParam(required=false) String keyword,
+    //                     @RequestParam(required=false) String tag) {
+    //     if ((keyword != null && !keyword.isEmpty()) || (tag != null && !tag.isEmpty())) {
+    //         return userService.search(keyword, tag);
+    //     }
+    //     return userService.findAll();
+    // }
+    // @PutMapping("/{id}/tags")
+    // public ResponseEntity<Void> updateTags(@PathVariable Long id, @RequestBody Map<String, Object> body) {
+    //     String tags = (String) body.get("tags"); // 逗号分隔字符串
+    //     boolean ok = userService.updateTags(id, tags);
+    //     if (!ok) return ResponseEntity.notFound().build();
+    //     return ResponseEntity.ok().build();
+    // }
+
 }

@@ -8,26 +8,44 @@
         <id property="id" column="id" />
         <result property="name" column="name" />
         <result property="email" column="email" />
+        <!-- TODO：曾加 tags 字段 -->
+        <!-- <result property="tags" column="tags" /> -->
     </resultMap>
 
     <select id="findAll" resultMap="UserResultMap">
-        SELECT id, name, email FROM users ORDER BY id DESC
+        SELECT id, name, email FROM users ORDER BY id DESC <!-- TODO：曾加 tags 字段 -->
     </select>
 
     <select id="findById" parameterType="long" resultMap="UserResultMap">
-        SELECT id, name, email FROM users WHERE id = #{id}
+        SELECT id, name, email FROM users WHERE id = #{id} <!-- TODO：曾加 tags 字段 -->
     </select>
 
     <insert id="insert" parameterType="com.example.usermanager.entity.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO users (name, email) VALUES (#{name}, #{email})
+        INSERT INTO users (name, email) VALUES (#{name}, #{email}) <!-- TODO：曾加 tags 字段 -->
     </insert>
 
     <update id="update" parameterType="com.example.usermanager.entity.User">
-        UPDATE users SET name = #{name}, email = #{email} WHERE id = #{id}
+        UPDATE users SET name = #{name}, email = #{email} WHERE id = #{id} <!-- TODO：曾加 tags 字段 -->
     </update>
 
     <delete id="delete" parameterType="long">
         DELETE FROM users WHERE id = #{id}
     </delete>
 
+    <!-- TODO：新增查询和更新 -->
+    <!-- <select id="search" resultMap="UserResultMap">
+        SELECT * FROM users
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (name LIKE CONCAT('%', #{keyword}, '%') OR email LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="tag != null and tag != ''">
+                AND tags LIKE CONCAT('%', #{tag}, '%')
+            </if>
+        </where>
+    </select>
+
+    <update id="updateTags" parameterType="com.example.usermanager.entity.User">
+        UPDATE users SET tags = #{tags} WHERE id = #{id}
+    </update> -->
 </mapper>
