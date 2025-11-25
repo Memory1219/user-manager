@@ -5,7 +5,14 @@ public class User {
     private String name;
     private String email;
     // TODO：曾加 tags 字段并生成 getter 和 setter
-    // private String tags;
+    private String tags;
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 
     // Getters and Setters
     public Long getId() {

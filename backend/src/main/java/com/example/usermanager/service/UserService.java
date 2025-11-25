@@ -16,7 +16,7 @@ public interface UserService {
     boolean delete(Long id);
 
     // TODO：新增查询和更新
-    // List<User> search(String keyword, String tag);
-    // boolean updateTags(Long id, String tags);
+     List<User> search(String keyword, String tag);
+     boolean updateTags(Long id, String tags);
 
 }
